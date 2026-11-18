@@ -1,0 +1,305 @@
+:root {
+    --rosso-corsa: #ff2800;
+    --rosso-dark: #990000;
+    --giallo-modena: #facc15;
+    --carbon-bg: #0b0d13;
+    --carbon-card: rgba(15, 19, 28, 0.88);
+    --text-light: #f8fafc;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background: radial-gradient(circle at center, #1e1318 0%, #07080c 100%);
+    color: var(--text-light);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#game-wrapper {
+    position: relative;
+    width: 480px;
+    height: 720px;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 40, 0, 0.28);
+    border: 2px solid rgba(255, 40, 0, 0.4);
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+/* HUD */
+#hud {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.hud-box {
+    background: rgba(10, 13, 20, 0.78);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-left: 3px solid var(--rosso-corsa);
+    padding: 6px 14px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    min-width: 92px;
+}
+
+.hud-label {
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    color: #94a3b8;
+    font-weight: 700;
+}
+
+.hud-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.scuderia-badge {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    border: 1px solid rgba(250, 204, 21, 0.45);
+    color: var(--giallo-modena);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 99px;
+    letter-spacing: 1.2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Overlays */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 9, 14, 0.76);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease;
+    z-index: 20;
+    padding: 24px;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.card {
+    background: var(--carbon-card);
+    border: 1px solid rgba(255, 40, 0, 0.35);
+    border-radius: 18px;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 370px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.badge-ferrari {
+    display: inline-block;
+    background: rgba(250, 204, 21, 0.14);
+    color: var(--giallo-modena);
+    border: 1px solid rgba(250, 204, 21, 0.4);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 99px;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+}
+
+.badge-crash {
+    display: inline-block;
+    background: rgba(255, 40, 0, 0.18);
+    color: #ff4d4d;
+    border: 1px solid rgba(255, 40, 0, 0.45);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 99px;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.game-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 40, 0, 0.6);
+    line-height: 1.05;
+}
+
+.game-title span {
+    color: var(--rosso-corsa);
+}
+
+.subtitle {
+    color: #cbd5e1;
+    font-size: 0.92rem;
+    letter-spacing: 2.2px;
+    font-weight: 700;
+    margin-top: 4px;
+    margin-bottom: 18px;
+}
+
+.car-preview {
+    background: radial-gradient(ellipse at center, rgba(255, 40, 0, 0.18) 0%, rgba(15, 23, 42, 0.4) 75%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px 10px 10px;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: center;
+}
+
+.preview-svg {
+    filter: drop-shadow(0 8px 16px rgba(255, 40, 0, 0.35));
+    animation: floatCar 2.2s ease-in-out infinite;
+}
+
+@keyframes floatCar {
+    0%, 100% { transform: translateY(0px) rotate(-2deg); }
+    50% { transform: translateY(-7px) rotate(3deg); }
+}
+
+.controls-hint {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+}
+
+.controls-hint kbd {
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.72rem;
+    color: var(--giallo-modena);
+}
+
+.controls-hint p {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: #94a3b8;
+}
+
+.btn-ferrari {
+    width: 100%;
+    background: linear-gradient(135deg, #ff2800 0%, #b80000 100%);
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 20px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(255, 40, 0, 0.45);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-ferrari:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(255, 40, 0, 0.65);
+}
+
+.btn-ferrari:active {
+    transform: translateY(1px);
+}
+
+.gameover-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 18px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.stat-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 900;
+    margin-top: 4px;
+}
+
+.stat-num.highlight {
+    color: var(--giallo-modena);
+}
+
+.medal-banner {
+    background: rgba(250, 204, 21, 0.12);
+    border: 1px solid rgba(250, 204, 21, 0.35);
+    color: var(--giallo-modena);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    letter-spacing: 1.2px;
+}

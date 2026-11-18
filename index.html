@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flappy T — Ferrari SF90 Stradale Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-wrapper">
+        <canvas id="gameCanvas" width="480" height="720"></canvas>
+
+        <!-- HUD Top -->
+        <div id="hud">
+            <div class="hud-box">
+                <span class="hud-label">SCORE</span>
+                <span id="scoreDisplay" class="hud-value">0</span>
+            </div>
+            <div class="hud-brand">
+                <span class="scuderia-badge">SF90 STRADALE</span>
+            </div>
+            <div class="hud-box">
+                <span class="hud-label">RECORD</span>
+                <span id="highScoreDisplay" class="hud-value">0</span>
+            </div>
+        </div>
+
+        <!-- Start Overlay -->
+        <div id="startScreen" class="overlay active">
+            <div class="card">
+                <div class="badge-ferrari">ASSETTO FIORANO • 1000 CV</div>
+                <h1 class="game-title">FLAPPY <span>T</span></h1>
+                <p class="subtitle">FERRARI SF90 STRADALE REMASTER</p>
+                
+                <div class="car-preview">
+                    <svg viewBox="0 0 220 75" width="210" height="72" class="preview-svg">
+                        <defs>
+                            <linearGradient id="rossoCorsa" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ff2800"/>
+                                <stop offset="55%" stop-color="#d40000"/>
+                                <stop offset="100%" stop-color="#7a0000"/>
+                            </linearGradient>
+                            <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#0f172a"/>
+                                <stop offset="50%" stop-color="#38bdf8"/>
+                                <stop offset="100%" stop-color="#090d16"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Rear diffuser & wing -->
+                        <path d="M18 32 L10 22 L28 24 L26 35 Z" fill="#18181b"/>
+                        <!-- Main SF90 aerodynamic body -->
+                        <path d="M15 44 L22 31 L65 28 L108 17 L154 27 L198 35 L210 45 L205 53 L16 53 Z" fill="url(#rossoCorsa)" stroke="#ff6b4a" stroke-width="1"/>
+                        <!-- Carbon side skirt & intake -->
+                        <path d="M40 53 L175 53 L168 47 L48 47 Z" fill="#111827"/>
+                        <path d="M105 32 L132 29 L124 43 L98 41 Z" fill="#090d16"/>
+                        <!-- Cockpit canopy -->
+                        <path d="M72 28 L108 19 L148 28 L130 33 L78 33 Z" fill="url(#glassGrad)"/>
+                        <!-- Scuderia shield -->
+                        <rect x="155" y="34" width="6" height="7" rx="1" fill="#facc15" stroke="#000" stroke-width="0.6"/>
+                        <!-- Hammerhead LED Headlight -->
+                        <path d="M192 37 L207 41 L195 43 Z" fill="#e0f2fe"/>
+                        <!-- Taillight quad rings -->
+                        <rect x="15" y="35" width="5" height="3" rx="1" fill="#ff3b30"/>
+                        <rect x="15" y="40" width="5" height="3" rx="1" fill="#ff3b30"/>
+                        <!-- Wheels -->
+                        <circle cx="55" cy="52" r="14" fill="#090d16" stroke="#3f3f46" stroke-width="2.5"/>
+                        <circle cx="55" cy="52" r="8" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3 3"/>
+                        <circle cx="55" cy="52" r="3.5" fill="#facc15"/>
+                        <circle cx="166" cy="52" r="14" fill="#090d16" stroke="#3f3f46" stroke-width="2.5"/>
+                        <circle cx="166" cy="52" r="8" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3 3"/>
+                        <circle cx="166" cy="52" r="3.5" fill="#facc15"/>
+                    </svg>
+                </div>
+
+                <div class="controls-hint">
+                    <span><kbd>ESPACE</kbd> / <kbd>CLIC</kbd> / <kbd>TACTILE</kbd></span>
+                    <p>Active le Boost V8 Bi-Turbo Hybride</p>
+                </div>
+
+                <button id="startBtn" class="btn-ferrari">LANCER LE MOTEUR</button>
+            </div>
+        </div>
+
+        <!-- Game Over Overlay -->
+        <div id="gameOverScreen" class="overlay">
+            <div class="card">
+                <div class="badge-crash">CRASH • DRAPEAU ROUGE</div>
+                <h2 class="gameover-title">FIN DE COURSE</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">SCORE</span>
+                        <span id="finalScore" class="stat-num">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">MEILLEUR</span>
+                        <span id="bestScore" class="stat-num highlight">0</span>
+                    </div>
+                </div>
+
+                <div id="medalBox" class="medal-banner">PILOTE ROOKIE</div>
+
+                <button id="restartBtn" class="btn-ferrari">REPRENDRE LA PISTE</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
